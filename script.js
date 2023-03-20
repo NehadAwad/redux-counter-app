@@ -7,15 +7,15 @@ const initialState = {
 }
 
 function counterReducer(state = initialState, action) {
-    if(action.type = "increment") {
+    if(action.type === "increment") {
         return {
             ...state,
-            value: state.value + 1   
+            value: state.value + action.payload  
         };
-    }else if(action.type = "decrement") {
+    }else if(action.type === "decrement") {
         return {
             ...state,
-            value: state.value - 1
+            value: state.value - action.payload
         };
     }else {
         return state;
@@ -24,7 +24,7 @@ function counterReducer(state = initialState, action) {
 
 const store = Redux.createStore(counterReducer);
 
-function render() {
+const render = () => {
     const state = store.getState();
     counterEl.innerHTML = state.value.toString();
 }
@@ -35,12 +35,15 @@ store.subscribe(render);
 
 incrementEl.addEventListener("click", () => {
     store.dispatch({
-        type: "increment"
+        type: "increment",
+        payload: 5,
     });
 })
 
 decrementEl.addEventListener("click", () => {
+
     store.dispatch({
-        type: "decrement"
+        type: "decrement",
+        payload: 2,
     });
 })
